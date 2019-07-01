@@ -1,4 +1,5 @@
 #Introduction
+
 I decided to go ahead and try to build an API strictly from nodejs using expressjs. I followed an article found (here)[https://medium.com/@purposenigeria/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb].
 
 Created the app.js file and ran
