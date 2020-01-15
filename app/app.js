@@ -20,6 +20,10 @@ app.get("/angularjs", function(req, res) {
     res.sendFile(path.join(__dirname + "/front-end/index.html"));
 });
 
+app.get("/vuejs", function(req, res) {
+  res.sendFile(path.join(__dirname + "/front-end/vue-trial.html"));
+});
+
 // get all todos
 app.get("/api/v1/todos", (req, res) => {
   res.status(200).send({
