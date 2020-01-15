@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 import express from "express";
 import db from "./db/db";
+import firstExternalFunc from "./vuemods/v1";
 
 // Set up the express app
 var path = require("path");
