@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,8 +10,95 @@
         <link rel="stylesheet" href="css/base.css" />
     </head>
     <body>
-        <div class="container-fluid">
-            <p>I Like Chicken Fingers and Pizza</p>
+        <div class="container" id="app">
+            <p>{{ message }}</p>
         </div>
+        <div class="container" id="app-2">
+            <p v-bind:title="message">
+                Hover your mouse over me for a few seconds
+                to see my dynamically bound title!
+            </p>
+        </div>
+        <div class="container" id="app-3">
+            <p v-if="seen">Now you see me</p>
+        </div>
+        <div class="container" id="app-4">
+            <ol>
+                <li v-for="todo in todos">
+                    {{ todo.text }}
+                </li>
+            </ol>
+        </div>
+        <div class="container" id="app-5">
+            <p>{{ message }}</p>
+            <button class="btn btn-primary" v-on:click="reverseMessage">Reverse Message</button>
+        </div>
+        <div class="container" id="app-6">
+            <p>{{ message }}</p>
+            <input v-model="message" />
+        </div>
+        <div class="container" id="app-7">
+            <ol>
+                <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+            </ol>
+        </div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            Vue.component("todo-item", {
+                props: ["todo"],
+                template: "<li>{{ todo.text }}</li>"
+            });
+        </script>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: { message: "I Like Chicken Fingers and Pizza" },
+                mounted () {
+                    axios.get("https://rickandmortyapi.com/api").then(response => { console.log(response.data); })
+                }
+            });
+            var app2 = new Vue({
+                el: '#app-2',
+                data: { message: 'You loaded this page on ' + new Date().toLocaleString() }
+            });
+            var app3 = new Vue({
+                el: '#app-3',
+                data: { seen: true }
+            });
+            var app4 = new Vue({
+                el: '#app-4',
+                data: {
+                    todos: [
+                        { text: "Learn JavaScript" },
+                        { text: "Learn Vue" },
+                        { text: "Build something awesome" }
+                    ]
+                }
+            });
+            var app5 = new Vue({
+                el: '#app-5',
+                data: { message: 'Hello Vue.js!' },
+                methods: {
+                    reverseMessage: function () {
+                        this.message = this.message.split('').reverse().join('');
+                    }
+                }
+            });
+            var app6 = new Vue({
+                el: '#app-6',
+                data: { message: 'Hello Vue!' }
+            });
+            var app7 = new Vue({
+                el: '#app-7',
+                data: {
+                    groceryList: [
+                        { id: 0, text: 'Vegetables' },
+                        { id: 1, text: 'Cheese' },
+                        { id: 2, text: 'Whatever else humans are supposed to eat' }
+                    ]
+                }
+            });
+        </script>
     </body>
 </html>
